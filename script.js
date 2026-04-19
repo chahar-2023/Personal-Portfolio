@@ -1,6 +1,11 @@
 // Project Data from Resume
 const projects = [
     {
+        name: "Food Delivery Website",
+        desc: "A responsive food ordering app with interactive menu, dynamic cart, and real-time pricing.",
+        link: "https://chahar-food-delivery-website.netlify.app/",
+    },
+    {
         name: "Food Delivery Clone",
         desc: "Interactive menu display and cart with dynamic pricing.",
         link: "https://statuesque-moonbeam-985537.netlify.app/"
@@ -55,7 +60,7 @@ function switchTheme(e) {
     } else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light');
-    }    
+    }
 }
 
 toggleSwitch.addEventListener('change', switchTheme, false);
