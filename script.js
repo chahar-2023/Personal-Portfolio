@@ -24,6 +24,11 @@ const projects = [
         name: "Rock-Paper-Scissors",
         desc: "Interactive game with player vs computer functionality.",
         link: "https://marvelous-lamington-72e3eb.netlify.app/"
+    },
+    {
+        name: "Zomato Clone",
+        desc: "Interactive food delivery app with restaurant listings and order management.",
+        link: "https://zomato-clone.netlify.app/"
     }
 ];
 
