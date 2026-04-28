@@ -3,32 +3,32 @@ const projects = [
     {
         name: "Food Delivery Website",
         desc: "A responsive food ordering app with interactive menu, dynamic cart, and real-time pricing.",
-        link: "https://chahar-food-delivery-website.netlify.app/",
+        link: "https://chahar-food-delivery-website.netlify.app/"
     },
     {
         name: "Food Delivery Clone",
         desc: "Interactive menu display and cart with dynamic pricing.",
-        link: "https://statuesque-moonbeam-985537.netlify.app/"
+        link: "https://food-clone-website-netlify.netlify.app/"
     },
     {
         name: "Dynamic Image Gallery",
         desc: "Responsive grid with lightbox and smooth CSS animations.",
-        link: "https://zesty-bunny-1d222a.netlify.app/"
+        link: "https://dynamic-image-gallery-netlify.netlify.app/"
     },
     {
         name: "Tic-Tac-Toe Game",
         desc: "Game logic with win detection and score tracking.",
-        link: "https://effervescent-pudding-4e203f.netlify.app/"
+        link: "https://tic-tac-toenetlify.netlify.app/"
     },
     {
         name: "Rock-Paper-Scissors",
         desc: "Interactive game with player vs computer functionality.",
-        link: "https://marvelous-lamington-72e3eb.netlify.app/"
+        link: "https://rock-paper-scissornetlify.netlify.app/"
     },
     {
         name: "Zomato Clone",
         desc: "Interactive food delivery app with restaurant listings and order management.",
-        link: "https://zomato-clone.netlify.app/"
+        link: "https://zomatonetlify.netlify.app/"
     }
 ];
 
