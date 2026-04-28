@@ -6,6 +6,11 @@ const projects = [
         link: "https://chahar-food-delivery-website.netlify.app/"
     },
     {
+        name: "Zomato Clone",
+        desc: "Interactive food delivery app with restaurant listings and order management.",
+        link: "https://zomatonetlify.netlify.app/"
+    },
+    {
         name: "Food Delivery Clone",
         desc: "Interactive menu display and cart with dynamic pricing.",
         link: "https://food-clone-website-netlify.netlify.app/"
@@ -25,11 +30,6 @@ const projects = [
         desc: "Interactive game with player vs computer functionality.",
         link: "https://rock-paper-scissornetlify.netlify.app/"
     },
-    {
-        name: "Zomato Clone",
-        desc: "Interactive food delivery app with restaurant listings and order management.",
-        link: "https://zomatonetlify.netlify.app/"
-    }
 ];
 
 // Load projects into the DOM
