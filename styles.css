@@ -1,472 +1,1445 @@
-:root{
-    --bg: #0A0E1A;
-    --bg-panel: #10182B;
-    --bg-panel-2: #141F38;
-    --line: #223052;
-    --text: #E9EDF6;
-    --muted: #8B96AE;
-    --amber: #FF8A4C;
-    --teal: #5EEAD4;
-    --violet: #8A87E8;
-    --display: 'Space Grotesk', sans-serif;
-    --body: 'Inter', sans-serif;
-    --mono: 'JetBrains Mono', monospace;
-  }
-  html[data-theme="light"]{
-    --bg: #F3F5FA;
-    --bg-panel: #FFFFFF;
-    --bg-panel-2: #F4F6FB;
-    --line: #DFE3EE;
-    --text: #12172A;
-    --muted: #565F78;
-    --amber: #E8703A;
-    --teal: #0E9C8C;
-    --violet: #6C63D6;
-  }
-  html[data-theme="light"] body{ background:var(--bg); }
-  html[data-theme="light"] nav.scrolled{ background:rgba(243,245,250,0.88);box-shadow:0 1px 0 var(--line); }
-  html[data-theme="light"] .skill-tag{ background:#EEF1F8;color:#2C3450;border-color:var(--line); }
-  html[data-theme="light"] .pc-tag{ background:rgba(14,156,140,0.12); }
-  html[data-theme="light"] .scroll-cue .bar{ background:var(--line); }
-  html[data-theme="light"] .btn-primary{ color:#FFFFFF;box-shadow:0 8px 20px rgba(232,112,58,0.25); }
-  html[data-theme="light"] .about-bio p{ color:#3A4360; }
-  html[data-theme="light"] .about-bio p strong{ color:var(--text); }
-  html[data-theme="light"] .skill-tag{ color:#2C3450; }
-  html[data-theme="light"] .tl-item ul{ color:#3A4360; }
-  html[data-theme="light"] .pc-desc{ color:#525C78; }
-  html[data-theme="light"] .pc-tag{ color:#0B7A6E; }
-  html[data-theme="light"] .project-card{ box-shadow:0 2px 10px rgba(20,26,44,0.06); }
-  html[data-theme="light"] .project-card:hover{ box-shadow:0 10px 28px rgba(20,26,44,0.1); }
-  html[data-theme="light"] .skill-card{ box-shadow:0 1px 4px rgba(20,26,44,0.04); }
-  html[data-theme="light"] .skill-card:hover{ box-shadow:0 8px 20px rgba(20,26,44,0.08); }
-  html[data-theme="light"] .contact-panel{ border-color:var(--line);box-shadow:0 4px 24px rgba(20,26,44,0.07); }
-  html[data-theme="light"] .contact-panel::before{ background:radial-gradient(circle, rgba(232,112,58,0.14), transparent 70%); }
-  html[data-theme="light"] footer{ color:#525C78;border-color:var(--line); }
-  html[data-theme="light"] .stat-value{ color:var(--text); }
-  html[data-theme="light"] .btn-ghost{ color:var(--text); }
-  html[data-theme="light"] .btn-ghost:hover{ border-color:var(--teal);color:var(--teal); }
-  html[data-theme="light"] .btn-icon:hover{ color:var(--text); }
-  html[data-theme="light"] .tl-item::before{ background:var(--bg); }
-  html[data-theme="light"] .edu-item{ }
-  html[data-theme="light"] ::selection{ background:var(--amber);color:#fff; }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:var(--body);
-    overflow-x:hidden;
-  }
-  ::selection{background:var(--amber);color:#0A0E1A;}
-  a{color:inherit;text-decoration:none;}
+/* ==========================================================================
+   VIKAS CHAHAR — PORTFOLIO STYLES
+   ==========================================================================
+   This file is organized top to bottom in the order things appear on the
+   page: variables/theme first, then Nav, Hero, About, Skills, Experience,
+   Projects, Education, Contact, Footer.
 
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+   HOW THE COLOR SYSTEM WORKS
+   ---------------------------
+   Near the top there's a ":root { ... }" block. That defines "CSS variables"
+   (also called custom properties) — named values like --bg and --text that
+   are reused everywhere instead of typing the same color code over and over.
+   If you want to change a color across the WHOLE site, change it once here
+   and it updates everywhere.
+
+   Then there's an "html[data-theme='light'] { ... }" block right after it.
+   That block simply OVERRIDES those same variable names when the page is in
+   light mode (the JS toggle switches data-theme between "dark" and "light").
+   Everything below still just says "var(--text)" etc, so it automatically
+   adapts to whichever theme is active.
+   ========================================================================== */
+
+
+/* ---- 1. COLOR & FONT VARIABLES (dark mode is the default) ---- */
+:root {
+  --bg: #0A0E1A;
+  /* page background */
+  --bg-panel: #10182B;
+  /* card / panel background */
+  --bg-panel-2: #141F38;
+  /* slightly lighter panel, used for hover states & gradients */
+  --line: #223052;
+  /* borders / dividers */
+  --text: #E9EDF6;
+  /* main text color */
+  --muted: #8B96AE;
+  /* secondary / less important text */
+  --amber: #FF8A4C;
+  /* primary accent color (buttons, highlights) */
+  --teal: #5EEAD4;
+  /* secondary accent color */
+  --violet: #8A87E8;
+  /* third accent color (used sparingly, e.g. hover borders) */
+  --display: 'Space Grotesk', sans-serif;
+  /* font for headings */
+  --body: 'Inter', sans-serif;
+  /* font for paragraphs */
+  --mono: 'JetBrains Mono', monospace;
+  /* font for labels, nav, buttons — the "techy" font */
+}
+
+/* ---- 2. LIGHT MODE OVERRIDES ----
+     Same variable names as above, different values. Anything using
+     var(--bg), var(--text) etc. will automatically switch to these
+     when <html data-theme="light"> is set by the theme-toggle button. */
+html[data-theme="light"] {
+  --bg: #F3F5FA;
+  --bg-panel: #FFFFFF;
+  --bg-panel-2: #F4F6FB;
+  --line: #DFE3EE;
+  --text: #12172A;
+  --muted: #565F78;
+  --amber: #E8703A;
+  --teal: #0E9C8C;
+  --violet: #6C63D6;
+}
+
+/* These are small extra fixes needed ONLY in light mode — spots where a
+     color was hard-coded elsewhere in this file (not using a variable) and
+     needs a separate light-mode version so it doesn't look broken on a
+     white background. */
+html[data-theme="light"] body {
+  background: var(--bg);
+}
+
+html[data-theme="light"] nav.scrolled {
+  background: rgba(243, 245, 250, 0.88);
+  box-shadow: 0 1px 0 var(--line);
+}
+
+html[data-theme="light"] .skill-tag {
+  background: #EEF1F8;
+  color: #2C3450;
+  border-color: var(--line);
+}
+
+html[data-theme="light"] .pc-tag {
+  background: rgba(14, 156, 140, 0.12);
+}
+
+html[data-theme="light"] .scroll-cue .bar {
+  background: var(--line);
+}
+
+html[data-theme="light"] .btn-primary {
+  color: #FFFFFF;
+  box-shadow: 0 8px 20px rgba(232, 112, 58, 0.25);
+}
+
+html[data-theme="light"] .about-bio p {
+  color: #3A4360;
+}
+
+html[data-theme="light"] .about-bio p strong {
+  color: var(--text);
+}
+
+html[data-theme="light"] .skill-tag {
+  color: #2C3450;
+}
+
+html[data-theme="light"] .tl-item ul {
+  color: #3A4360;
+}
+
+html[data-theme="light"] .pc-desc {
+  color: #525C78;
+}
+
+html[data-theme="light"] .pc-tag {
+  color: #0B7A6E;
+}
+
+html[data-theme="light"] .project-card {
+  box-shadow: 0 2px 10px rgba(20, 26, 44, 0.06);
+}
+
+html[data-theme="light"] .project-card:hover {
+  box-shadow: 0 10px 28px rgba(20, 26, 44, 0.1);
+}
+
+html[data-theme="light"] .skill-card {
+  box-shadow: 0 1px 4px rgba(20, 26, 44, 0.04);
+}
+
+html[data-theme="light"] .skill-card:hover {
+  box-shadow: 0 8px 20px rgba(20, 26, 44, 0.08);
+}
+
+html[data-theme="light"] .contact-panel {
+  border-color: var(--line);
+  box-shadow: 0 4px 24px rgba(20, 26, 44, 0.07);
+}
+
+html[data-theme="light"] .contact-panel::before {
+  background: radial-gradient(circle, rgba(232, 112, 58, 0.14), transparent 70%);
+}
+
+html[data-theme="light"] footer {
+  color: #525C78;
+  border-color: var(--line);
+}
+
+html[data-theme="light"] .stat-value {
+  color: var(--text);
+}
+
+html[data-theme="light"] .btn-ghost {
+  color: var(--text);
+}
+
+html[data-theme="light"] .btn-ghost:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+html[data-theme="light"] .btn-icon:hover {
+  color: var(--text);
+}
+
+html[data-theme="light"] .tl-item::before {
+  background: var(--bg);
+}
+
+html[data-theme="light"] ::selection {
+  background: var(--amber);
+  color: #fff;
+}
+
+
+/* ---- 3. GLOBAL RESET & BASE STYLES ----
+     Standard "CSS reset" so every browser starts from the same blank slate
+     (no default margins/padding, consistent box-sizing math). */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* clicking an in-page link scrolls smoothly instead of jumping */
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  overflow-x: hidden;
+  /* prevents an accidental horizontal scrollbar */
+}
+
+::selection {
+  background: var(--amber);
+  color: #0A0E1A;
+}
+
+/* color of text when the user highlights/selects it */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* links don't get the default blue/underline */
+
+/* Respect users who've asked their OS to reduce motion (accessibility).
+     This shrinks all animations/transitions down to basically instant. */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reusable "content width" wrapper — centers content and caps its width
+     so text doesn't stretch edge-to-edge on huge monitors. */
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+
+/* ==========================================================================
+     4. NAVIGATION BAR (top of page, fixed so it stays visible while scrolling)
+     ========================================================================== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  /* sticks to the top, above everything else */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 32px;
+  background: rgba(10, 14, 26, 0);
+  /* transparent at the very top of the page */
+  border-bottom: 1px solid transparent;
+  transition: background .3s ease, border-color .3s ease, padding .3s ease;
+}
+
+/* JS adds the "scrolled" class once the user scrolls down a bit —
+     this gives the nav a solid, blurred background so text stays readable
+     over whatever content is now behind it. */
+nav.scrolled {
+  background: rgba(10, 14, 26, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 32px;
+  /* slightly shorter once scrolled */
+}
+
+.logo {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  display: inline-block;
+}
+
+/* Desktop nav links (Home / About / Skills / etc.) */
+.nav-links {
+  display: flex;
+  gap: 34px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color .25s;
+}
+
+/* The little underline that slides in under a nav link on hover.
+     It's an empty ::after element, 0 width by default, animated to 100%. */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 0;
+  background: var(--amber);
+  transition: width .25s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* The pill-shaped "Get in touch" button on the right side of the nav */
+.nav-cta {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  color: var(--text);
+  transition: border-color .25s, color .25s, background .25s;
+}
+
+.nav-cta:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+/* Hamburger icon button — only visible on small screens (see media query below) */
+.nav-burger {
+  display: none;
+  /* hidden on desktop by default */
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: transparent;
+  cursor: pointer;
+  flex-direction: column;
+}
+
+.nav-burger span {
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+nav:not(.scrolled) .nav-burger {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* When JS adds "open" to the burger button, these turn the 3 lines into an X */
+.nav-burger.open span:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg);
+}
+
+.nav-burger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-burger.open span:nth-child(3) {
+  transform: translateY(-5.5px) rotate(-45deg);
+}
+
+/* ---- Mobile nav menu (screens 820px and narrower) ---- */
+@media (max-width:820px) {
+  .nav-links {
+    /* Turns the horizontal link row into a dropdown card that floats
+         below the nav bar. It's always in the DOM, just collapsed
+         (max-height:0) until JS toggles the "open" class. */
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: fixed;
+    top: 64px;
+    left: 16px;
+    right: 16px;
+    z-index: 99;
+    background: rgba(10, 14, 26, 0.96);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 10px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height .3s ease, opacity .25s ease;
   }
 
-  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
-
-  /* ---------- NAV ---------- */
-  nav{
-    position:fixed;top:0;left:0;right:0;z-index:100;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:22px 32px;
-    background:rgba(10,14,26,0);
-    border-bottom:1px solid transparent;
-    transition:background .3s ease, border-color .3s ease, padding .3s ease;
-  }
-  nav.scrolled{
-    background:rgba(10,14,26,0.82);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-    padding:14px 32px;
-  }
-  .logo{
-    font-family:var(--mono);font-weight:500;font-size:15px;letter-spacing:0.5px;
-    color:var(--text);
-    display:flex;align-items:center;gap:8px;
-  }
-  .logo .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block;}
-  .nav-links{display:flex;gap:34px;list-style:none;}
-  .nav-links a{
-    font-size:13px;color:var(--muted);letter-spacing:0.3px;
-    text-transform:uppercase;font-weight:500;
-    position:relative;padding-bottom:4px;
-    transition:color .25s;
-  }
-  .nav-links a::after{
-    content:'';position:absolute;left:0;bottom:0;height:1px;width:0;
-    background:var(--amber);transition:width .25s ease;
-  }
-  .nav-links a:hover{color:var(--text);}
-  .nav-links a:hover::after{width:100%;}
-  .nav-cta{
-    font-family:var(--mono);font-size:12px;padding:9px 16px;
-    border:1px solid var(--line);border-radius:100px;color:var(--text);
-    transition:border-color .25s, color .25s, background .25s;
-  }
-  .nav-cta:hover{border-color:var(--amber);color:var(--amber);}
-  .nav-burger{
-    display:none;
-    width:38px;height:38px;border-radius:10px;border:1px solid var(--line);
-    align-items:center;justify-content:center;gap:4px;
-    background:transparent;cursor:pointer;
-    flex-direction:column;
-  }
-  .nav-burger span{display:block;width:16px;height:1.5px;background:currentColor;transition:transform .25s ease, opacity .25s ease;}
-  nav:not(.scrolled) .nav-burger{ color:#fff;border-color:rgba(255,255,255,0.5); }
-  .nav-burger.open span:nth-child(1){ transform:translateY(5.5px) rotate(45deg); }
-  .nav-burger.open span:nth-child(2){ opacity:0; }
-  .nav-burger.open span:nth-child(3){ transform:translateY(-5.5px) rotate(-45deg); }
-  @media (max-width:820px){
-    .nav-links{
-      display:flex;flex-direction:column;gap:0;
-      position:fixed;top:64px;left:16px;right:16px;z-index:99;
-      background:rgba(10,14,26,0.96);backdrop-filter:blur(10px);
-      border:1px solid var(--line);border-radius:16px;
-      padding:10px;
-      max-height:0;overflow:hidden;opacity:0;pointer-events:none;
-      transition:max-height .3s ease, opacity .25s ease;
-    }
-    .nav-links.open{ max-height:340px;opacity:1;pointer-events:auto; }
-    .nav-links li{ width:100%; }
-    .nav-links a{
-      display:block;padding:13px 12px;font-size:14px;color:#E9EDF6 !important;
-      border-bottom:1px solid rgba(255,255,255,0.08);
-    }
-    .nav-links li:last-child a{ border-bottom:none; }
-    .nav-links a::after{ display:none; }
-    .nav-burger{ display:flex; }
-    .nav-cta{ display:none; }
-  }
-  nav:not(.scrolled) .logo,
-  nav:not(.scrolled) .nav-links a,
-  nav:not(.scrolled) .nav-cta{ color:#fff; }
-  nav:not(.scrolled) .nav-cta{ border-color:rgba(255,255,255,0.5); }
-
-  .theme-toggle{
-    position:absolute;bottom:36px;right:32px;z-index:3;
-    display:flex;align-items:center;gap:8px;
-    font-family:var(--mono);font-size:12px;color:#fff;
-    background:rgba(10,14,26,0.45);border:1px solid rgba(255,255,255,0.35);
-    padding:10px 18px;border-radius:100px;cursor:pointer;
-    backdrop-filter:blur(6px);
-    transition:border-color .25s, background .25s;
-  }
-  html[data-theme="light"] .theme-toggle{ background:rgba(255,255,255,0.7); }
-  .theme-toggle:hover{border-color:var(--amber);}
-  .theme-toggle svg{width:14px;height:14px;}
-  @media (max-width:820px){ .theme-toggle{bottom:30px;right:24px;padding:9px 14px;} }
-
-  /* ---------- HERO ---------- */
-  #hero{
-    position:relative;
-    min-height:100vh;
-    display:flex;flex-direction:column;justify-content:center;
-    overflow:hidden;
-    background:linear-gradient(150deg, #14335E 0%, #2E5FA3 32%, #5A93D1 58%, #9AC4E8 78%, #E8EEF3 100%);
-  }
-  .hero-ground{
-    position:absolute;left:0;right:0;bottom:0;height:14%;z-index:1;
-    background:linear-gradient(to top, rgba(232,238,243,0.9), rgba(232,238,243,0));
-    pointer-events:none;
-  }
-  .hero-fade-top{
-    position:absolute;left:0;right:0;top:0;height:120px;z-index:1;
-    background:linear-gradient(to bottom, rgba(10,14,26,0.35), transparent);
-    pointer-events:none;
-  }
-  #hero-canvas{
-    position:absolute;inset:0;width:100%;height:100%;
-    cursor:grab;
-    opacity:0.32;
-    mix-blend-mode:overlay;
-  }
-  #hero-canvas:active{cursor:grabbing;}
-  .hero-inner{
-    position:relative;z-index:2;
-    padding:0 32px;
-    pointer-events:none;
-    width:100%;
-  }
-  .hero-grid{
-    max-width:1180px;margin:0 auto;
-    display:grid;grid-template-columns:1.15fr 0.85fr;
-    align-items:center;gap:40px;
-  }
-  .hero-photo-wrap{
-    position:relative;pointer-events:none;
-    display:flex;justify-content:flex-end;align-items:flex-end;
-    height:min(86vh, 760px);
-    margin-right:-32px;
-  }
-  .hero-photo-frame{
-    position:relative;height:100%;
-    aspect-ratio:900/1116;
-    max-width:100%;
-  }
-  .hero-photo-frame img{
-    width:100%;height:100%;object-fit:cover;object-position:50% 6%;
-    -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 98%), radial-gradient(90% 100% at 62% 40%, #000 62%, transparent 96%);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to bottom, #000 78%, transparent 98%), radial-gradient(90% 100% at 62% 40%, #000 62%, transparent 96%);
-    mask-composite: intersect;
-    filter:saturate(1.05) contrast(1.03);
-  }
-  .hero-photo-frame::after{
-    content:'';position:absolute;inset:0;
-    background:radial-gradient(60% 50% at 50% 100%, rgba(10,14,26,0.9), transparent 75%);
-    pointer-events:none;
-  }
-  .hero-photo-tag{
-    position:absolute;top:10%;right:6%;z-index:3;pointer-events:auto;
-    font-family:var(--mono);font-size:11px;letter-spacing:0.5px;
-    background:rgba(16,24,43,0.6);border:1px solid var(--line);
-    padding:9px 14px;border-radius:100px;
-    backdrop-filter:blur(6px);
-    display:flex;align-items:center;gap:7px;
-  }
-  .hero-photo-tag .pulse{
-    width:7px;height:7px;border-radius:50%;background:var(--teal);
-    box-shadow:0 0 0 0 rgba(94,234,212,0.6);
-    animation:pulse 2s infinite;
-  }
-  @media (max-width:560px){
-    .hero-photo-tag{top:6%;right:4%;font-size:10px;padding:7px 11px;}
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(94,234,212,0.55);}
-    70%{box-shadow:0 0 0 9px rgba(94,234,212,0);}
-    100%{box-shadow:0 0 0 0 rgba(94,234,212,0);}
-  }
-  @media (max-width:960px){
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-photo-wrap{
-      order:-1;height:auto;margin:0 -32px 8px -32px;
-      justify-content:center;width:calc(100% + 64px);
-    }
-    .hero-photo-frame{width:100%;max-width:none;aspect-ratio:900/1116;height:auto;}
-  }
-  @media (max-width:560px){
-    .hero-photo-frame{aspect-ratio:900/1116;}
-  }
-  .hi-line{
-    font-family:var(--display);font-weight:500;font-size:clamp(22px,3vw,32px);
-    color:#EAF3FC;margin-bottom:6px;
-  }
-  h1.name{
-    font-family:var(--display);font-weight:700;
-    font-size:clamp(48px, 9vw, 100px);
-    line-height:0.98;letter-spacing:-2px;
-    max-width:900px;color:#FFFFFF;
-  }
-  h1.name .accent{color:#8FD3F4;font-style:normal;}
-  .role-line-script{
-    font-family:'Caveat', cursive;font-weight:600;
-    font-size:clamp(28px,4vw,40px);color:#FFFFFF;
-    margin-top:10px;max-width:560px;
-  }
-  .role-line{
-    font-family:var(--body);font-size:clamp(16px,2vw,22px);color:var(--muted);
-    margin-top:22px;max-width:560px;line-height:1.5;
-  }
-  .role-line strong{color:var(--text);font-weight:600;}
-  .hero-actions{
-    display:flex;gap:16px;margin-top:40px;pointer-events:auto;flex-wrap:wrap;
-  }
-  .btn{
-    font-family:var(--mono);font-size:13px;padding:14px 26px;border-radius:100px;
-    display:inline-flex;align-items:center;gap:8px;
-    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
-  }
-  .btn-primary{
-    background:var(--amber);color:#0A0E1A;font-weight:600;
-  }
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,138,76,0.28);}
-  .btn-ghost{
-    border:1px solid var(--line);color:var(--text);
-  }
-  .btn-ghost:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px);}
-
-  .hero-actions .btn-ghost{ color:#fff;border-color:rgba(255,255,255,0.55); }
-  .hero-actions .btn-ghost:hover{ border-color:#fff;color:#fff;background:rgba(255,255,255,0.1); }
-  .link-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;pointer-events:auto;}
-  .link-row .btn-icon{ color:rgba(255,255,255,0.85);border-color:rgba(255,255,255,0.4); }
-  .link-row .btn-icon:hover{ color:#fff;border-color:#fff; }
-  .btn-icon{
-    font-family:var(--mono);font-size:12px;padding:10px 16px;border-radius:100px;
-    border:1px solid var(--line);color:var(--muted);
-    display:inline-flex;align-items:center;gap:7px;
-    transition:border-color .25s, color .25s, transform .25s;
-  }
-  .btn-icon svg{width:14px;height:14px;}
-  .btn-icon:hover{color:var(--text);border-color:var(--violet);transform:translateY(-2px);}
-
-  .drag-hint{
-    position:absolute;bottom:100px;right:32px;z-index:2;
-    font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.75);
-    display:flex;align-items:center;gap:8px;
-    letter-spacing:0.5px;
-  }
-  .drag-hint svg{width:16px;height:16px;opacity:0.7;}
-  @media (max-width:820px){ .drag-hint{display:none;} }
-
-  .scroll-cue{
-    position:absolute;bottom:36px;left:32px;z-index:2;
-    display:flex;align-items:center;gap:10px;
-    font-family:var(--mono);font-size:11px;color:rgba(255,255,255,0.75);letter-spacing:1px;
-  }
-  .scroll-cue .bar{width:1px;height:34px;background:rgba(255,255,255,0.3);position:relative;overflow:hidden;}
-  .scroll-cue .bar::after{
-    content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;
-    background:var(--amber);animation:scrollbar 1.8s ease-in-out infinite;
-  }
-  @keyframes scrollbar{
-    0%{top:-100%;} 50%{top:0%;} 100%{top:100%;}
+  .nav-links.open {
+    max-height: 340px;
+    opacity: 1;
+    pointer-events: auto;
   }
 
-  /* ---------- SECTION SHARED ---------- */
-  section{position:relative;padding:120px 0;scroll-margin-top:84px;}
-  .section-head{margin-bottom:56px;}
-  .section-num{
-    font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:2px;
-    margin-bottom:14px;display:block;
-  }
-  h2.section-title{
-    font-family:var(--display);font-weight:600;font-size:clamp(30px,4vw,46px);
-    letter-spacing:-1px;
+  /* JS toggles this class */
+  .nav-links li {
+    width: 100%;
   }
 
-  /* ---------- ABOUT ---------- */
-  #about .about-grid{
-    display:grid;grid-template-columns:1.5fr 1fr;gap:70px;
-    align-items:start;
+  .nav-links a {
+    display: block;
+    padding: 13px 12px;
+    font-size: 14px;
+    color: #E9EDF6 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
-  .about-bio p{
-    font-size:17px;line-height:1.85;color:#C6CEE0;margin-bottom:18px;
-  }
-  .about-bio p strong{color:var(--text);font-weight:600;}
-  .stat-list{display:flex;flex-direction:column;gap:0;}
-  .stat-item{
-    padding:22px 0;border-top:1px solid var(--line);
-  }
-  .stat-item:last-child{border-bottom:1px solid var(--line);}
-  .stat-label{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
-  .stat-value{font-family:var(--display);font-size:19px;font-weight:600;}
-  @media (max-width:860px){ #about .about-grid{grid-template-columns:1fr;gap:40px;} }
 
-  /* ---------- SKILLS ---------- */
-  .skill-groups{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-  .skill-card{
-    background:var(--bg-panel);border:1px solid var(--line);border-radius:16px;
-    padding:26px 22px;
-    transform-style:preserve-3d;
-    transition:transform .3s ease, border-color .3s ease, background .3s ease;
-    will-change:transform;
+  .nav-links li:last-child a {
+    border-bottom: none;
   }
-  .skill-card:hover{border-color:var(--violet);background:var(--bg-panel-2);}
-  .skill-card h3{
-    font-family:var(--mono);font-size:12px;color:var(--teal);
-    text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;
-  }
-  .skill-tags{display:flex;flex-wrap:wrap;gap:8px;}
-  .skill-tag{
-    font-size:13px;padding:7px 12px;border-radius:8px;
-    background:rgba(255,255,255,0.03);border:1px solid var(--line);
-    color:#D5DBEA;
-  }
-  @media (max-width:960px){ .skill-groups{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:560px){ .skill-groups{grid-template-columns:1fr;} }
 
-  /* ---------- EXPERIENCE ---------- */
-  .timeline{border-left:1px solid var(--line);padding-left:40px;position:relative;}
-  .tl-item{position:relative;padding-bottom:52px;}
-  .tl-item:last-child{padding-bottom:0;}
-  .tl-item::before{
-    content:'';position:absolute;left:-45px;top:4px;width:10px;height:10px;
-    border-radius:50%;background:var(--bg);border:2px solid var(--amber);
+  .nav-links a::after {
+    display: none;
   }
-  .tl-meta{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:8px;letter-spacing:0.5px;}
-  .tl-title{font-family:var(--display);font-size:22px;font-weight:600;margin-bottom:4px;}
-  .tl-org{color:var(--teal);font-size:14px;margin-bottom:16px;font-weight:500;}
-  .tl-item ul{padding-left:18px;color:#C6CEE0;line-height:1.8;font-size:15px;}
-  .tl-item li{margin-bottom:4px;}
 
-  /* ---------- PROJECTS ---------- */
-  .project-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
-    perspective:1200px;
+  /* no underline-on-hover effect needed in the dropdown */
+  .nav-burger {
+    display: flex;
   }
-  .project-card{
-    background:linear-gradient(160deg, var(--bg-panel), var(--bg-panel-2));
-    border:1px solid var(--line);border-radius:18px;
-    padding:0;overflow:hidden;
-    transform-style:preserve-3d;
-    transition:transform .1s ease-out, border-color .3s ease;
-    will-change:transform;
-    display:flex;flex-direction:column;
-  }
-  .project-card:hover{border-color:var(--amber);}
-  .pc-top{
-    padding:26px 26px 0 26px;
-    display:flex;justify-content:space-between;align-items:flex-start;
-  }
-  .pc-index{font-family:var(--mono);font-size:12px;color:var(--muted);}
-  .pc-year{font-family:var(--mono);font-size:12px;color:var(--amber);}
-  .pc-body{padding:16px 26px 26px 26px;flex:1;display:flex;flex-direction:column;}
-  .pc-title{font-family:var(--display);font-size:21px;font-weight:600;margin-bottom:10px;}
-  .pc-desc{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:20px;flex:1;}
-  .pc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;}
-  .pc-tag{font-family:var(--mono);font-size:10.5px;padding:5px 9px;border-radius:6px;background:rgba(94,234,212,0.08);color:var(--teal);}
-  .pc-link{
-    font-family:var(--mono);font-size:12.5px;color:var(--text);
-    display:inline-flex;align-items:center;gap:6px;
-    border-top:1px solid var(--line);padding-top:16px;
-    transition:color .25s;
-  }
-  .pc-link:hover{color:var(--amber);}
-  .pc-link svg{width:13px;height:13px;transition:transform .25s;}
-  .pc-link:hover svg{transform:translate(2px,-2px);}
-  @media (max-width:960px){ .project-grid{grid-template-columns:1fr 1fr;} }
-  @media (max-width:640px){ .project-grid{grid-template-columns:1fr;} }
 
-  /* ---------- EDUCATION ---------- */
-  .edu-list{display:flex;flex-direction:column;gap:0;}
-  .edu-item{
-    display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;
-    padding:26px 0;border-top:1px solid var(--line);
+  /* show the hamburger icon */
+  .nav-cta {
+    display: none;
   }
-  .edu-list .edu-item:last-child{border-bottom:1px solid var(--line);}
-  .edu-degree{font-family:var(--display);font-size:19px;font-weight:600;margin-bottom:6px;}
-  .edu-school{color:var(--teal);font-size:14px;margin-bottom:4px;}
-  .edu-loc{color:var(--muted);font-size:13px;}
-  .edu-year{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap;}
-  @media (max-width:600px){ .edu-item{grid-template-columns:1fr;gap:6px;} }
 
-  /* ---------- CONTACT ---------- */
-  #contact{padding-bottom:80px;}
-  .contact-panel{
-    background:var(--bg-panel);border:1px solid var(--line);border-radius:24px;
-    padding:70px 60px;text-align:center;position:relative;overflow:hidden;
+  /* hide the desktop "Get in touch" pill to save space */
+}
+
+/* While the nav is still transparent (top of page, over the hero photo),
+     force the text to stay white so it's readable against the hero image —
+     regardless of whether dark or light theme is active. Once "scrolled" is
+     added, normal var(--text) takes over instead. */
+nav:not(.scrolled) .logo,
+nav:not(.scrolled) .nav-links a,
+nav:not(.scrolled) .nav-cta {
+  color: #fff;
+}
+
+nav:not(.scrolled) .nav-cta {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Dark/Light mode toggle pill — bottom-right corner of the hero section */
+.theme-toggle {
+  position: absolute;
+  bottom: 36px;
+  right: 32px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #fff;
+  background: rgba(10, 14, 26, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 10px 18px;
+  border-radius: 100px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: border-color .25s, background .25s;
+}
+
+html[data-theme="light"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.theme-toggle:hover {
+  border-color: var(--amber);
+}
+
+.theme-toggle svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width:820px) {
+  .theme-toggle {
+    bottom: 30px;
+    right: 24px;
+    padding: 9px 14px;
   }
-  .contact-panel::before{
-    content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);
-    width:600px;height:600px;border-radius:50%;
-    background:radial-gradient(circle, rgba(255,138,76,0.10), transparent 70%);
-    pointer-events:none;
+}
+
+
+/* ==========================================================================
+     5. HERO SECTION (the big intro at the very top with your photo)
+     ========================================================================== */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  /* fills the full screen height on load */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  /* Fixed sky-blue gradient background — stays the same in dark AND light
+       mode on purpose, so it always matches the tone of your photo. */
+  background: linear-gradient(150deg, #14335E 0%, #2E5FA3 32%, #5A93D1 58%, #9AC4E8 78%, #E8EEF3 100%);
+}
+
+/* Soft light band at the very bottom of the hero — mimics the ground/wall
+     in the photo so the image blends into the page instead of having a
+     hard cut-off edge. */
+.hero-ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 14%;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(232, 238, 243, 0.9), rgba(232, 238, 243, 0));
+  pointer-events: none;
+}
+
+/* Subtle dark fade at the very top of the hero, so the white nav text
+     stays readable no matter how bright the gradient/photo is up there. */
+.hero-fade-top {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 120px;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(10, 14, 26, 0.35), transparent);
+  pointer-events: none;
+}
+
+/* The 3D canvas (drawn by Three.js in script.js) sits behind everything
+     else in the hero. Low opacity + "overlay" blend mode = a subtle animated
+     texture rather than a competing focal point. */
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  opacity: 0.32;
+  mix-blend-mode: overlay;
+}
+
+#hero-canvas:active {
+  cursor: grabbing;
+}
+
+/* cursor changes while you're dragging to rotate it */
+
+/* Wraps ALL the hero content (text + photo) and centers it with the same
+     max-width as the rest of the page. pointer-events:none here means clicks
+     pass through to the canvas UNLESS a specific child re-enables them
+     (see "pointer-events:auto" on buttons below) — that's what lets you
+     both drag the 3D scene AND click the buttons on top of it. */
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  padding: 0 32px;
+  pointer-events: none;
+  width: 100%;
+}
+
+.hero-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  /* text column | photo column */
+  align-items: center;
+  gap: 40px;
+}
+
+/* ---- Profile photo ---- */
+.hero-photo-wrap {
+  position: relative;
+  pointer-events: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: min(86vh, 760px);
+  margin-right: -32px;
+  /* lets the photo bleed past the normal page edge, flush with the browser edge */
+}
+
+.hero-photo-frame {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 900/1116;
+  /* matches the actual cropped photo file's proportions */
+  max-width: 100%;
+}
+
+.hero-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 6%;
+  /* This "mask" fades the photo's edges to transparent (instead of a hard
+       rectangle) so it blends into the gradient background rather than
+       looking like a pasted-on box. Two gradients combined: one fades the
+       bottom, one fades the left/curved edge. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 98%), radial-gradient(90% 100% at 62% 40%, #000 62%, transparent 96%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, #000 78%, transparent 98%), radial-gradient(90% 100% at 62% 40%, #000 62%, transparent 96%);
+  mask-composite: intersect;
+  filter: saturate(1.05) contrast(1.03);
+  /* makes the photo pop very slightly */
+}
+
+/* An extra soft shadow gradient laid over the bottom of the photo, for
+     extra blending with the ground band below it. */
+.hero-photo-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 50% at 50% 100%, rgba(10, 14, 26, 0.9), transparent 75%);
+  pointer-events: none;
+}
+
+/* The small "Open to work" pill that floats over the top-right of the photo */
+.hero-photo-tag {
+  position: absolute;
+  top: 10%;
+  right: 6%;
+  z-index: 3;
+  pointer-events: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  background: rgba(16, 24, 43, 0.6);
+  border: 1px solid var(--line);
+  padding: 9px 14px;
+  border-radius: 100px;
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* The little pulsing green dot inside that pill */
+.hero-photo-tag .pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 0 rgba(94, 234, 212, 0.6);
+  animation: pulse 2s infinite;
+}
+
+@media (max-width:560px) {
+  .hero-photo-tag {
+    top: 6%;
+    right: 4%;
+    font-size: 10px;
+    padding: 7px 11px;
   }
-  .contact-panel h2{
-    font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,52px);
-    letter-spacing:-1px;margin-bottom:18px;position:relative;
+
+  /* shrink it on phones */
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(94, 234, 212, 0.55);
   }
-  .contact-panel p{color:var(--muted);font-size:16px;margin-bottom:36px;position:relative;}
-  .contact-links{
-    display:flex;justify-content:center;gap:16px;flex-wrap:wrap;position:relative;
+
+  70% {
+    box-shadow: 0 0 0 9px rgba(94, 234, 212, 0);
   }
-  footer{
-    padding:32px;text-align:center;
-    font-family:var(--mono);font-size:12px;color:var(--muted);
-    border-top:1px solid var(--line);
+
+  /* ring expands outward and fades */
+  100% {
+    box-shadow: 0 0 0 0 rgba(94, 234, 212, 0);
   }
-  footer a{color:var(--muted);}
-  footer a:hover{color:var(--amber);}
+}
+
+/* ---- Hero responsive behavior ----
+     Below 960px (tablets/phones): stack text above photo instead of side
+     by side, and let the photo go full-bleed edge to edge. */
+@media (max-width:960px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-photo-wrap {
+    order: -1;
+    height: auto;
+    margin: 0 -32px 8px -32px;
+    justify-content: center;
+    width: calc(100% + 64px);
+  }
+
+  .hero-photo-frame {
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 900/1116;
+    height: auto;
+  }
+}
+
+@media (max-width:560px) {
+  .hero-photo-frame {
+    aspect-ratio: 900/1116;
+  }
+}
+
+/* ---- Hero text ---- */
+.hi-line {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(22px, 3vw, 32px);
+  color: #EAF3FC;
+  margin-bottom: 6px;
+}
+
+h1.name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(48px, 9vw, 100px);
+  /* scales smoothly between screen sizes */
+  line-height: 0.98;
+  letter-spacing: -2px;
+  max-width: 900px;
+  color: #FFFFFF;
+}
+
+h1.name .accent {
+  color: #8FD3F4;
+  font-style: normal;
+}
+
+/* the "Chahar" part, in light blue */
+.role-line-script {
+  font-family: 'Caveat', cursive;
+  /* the handwritten-style tagline font */
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 40px);
+  color: #FFFFFF;
+  margin-top: 10px;
+  max-width: 560px;
+}
+
+/* (Not currently shown in the hero, but kept here in case you bring back
+     a longer descriptive paragraph under the name.) */
+.role-line {
+  font-family: var(--body);
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--muted);
+  margin-top: 22px;
+  max-width: 560px;
+  line-height: 1.5;
+}
+
+.role-line strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Row that holds "Download Resume" + "View Naukri Profile" */
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+  pointer-events: auto;
+  flex-wrap: wrap;
+}
+
+/* ---- Shared button styles, reused across the whole site ---- */
+.btn {
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 14px 26px;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.btn-primary {
+  background: var(--amber);
+  color: #0A0E1A;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 138, 76, 0.28);
+}
+
+.btn-ghost {
+  border: 1px solid var(--line);
+  color: var(--text);
+}
+
+.btn-ghost:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  transform: translateY(-2px);
+}
+
+/* Inside the hero specifically, force ghost-button text to white — the
+     regular var(--text) would go dark in light mode and disappear against
+     the blue hero background. */
+.hero-actions .btn-ghost {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.hero-actions .btn-ghost:hover {
+  border-color: #fff;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Smaller row below the main buttons: GitHub + LinkedIn icon links */
+.link-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+  pointer-events: auto;
+}
+
+.link-row .btn-icon {
+  color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.link-row .btn-icon:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+.btn-icon {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 10px 16px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: border-color .25s, color .25s, transform .25s;
+}
+
+.btn-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.btn-icon:hover {
+  color: var(--text);
+  border-color: var(--violet);
+  transform: translateY(-2px);
+}
+
+/* "drag to rotate" hint text near the bottom-right of the hero */
+.drag-hint {
+  position: absolute;
+  bottom: 100px;
+  right: 32px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.5px;
+}
+
+.drag-hint svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+}
+
+@media (max-width:820px) {
+  .drag-hint {
+    display: none;
+  }
+}
+
+/* not shown on mobile — dragging matters less there */
+
+/* "scroll" indicator, bottom-left of the hero, with an animated moving bar */
+.scroll-cue {
+  position: absolute;
+  bottom: 36px;
+  left: 32px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 1px;
+}
+
+.scroll-cue .bar {
+  width: 1px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-cue .bar::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--amber);
+  animation: scrollbar 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollbar {
+  0% {
+    top: -100%;
+  }
+
+  50% {
+    top: 0%;
+  }
+
+  100% {
+    top: 100%;
+  }
+
+  /* the little bar travels top-to-bottom on a loop */
+}
+
+
+/* ==========================================================================
+     6. SHARED SECTION STYLES (used by About / Skills / Experience / etc.)
+     ========================================================================== */
+section {
+  position: relative;
+  padding: 120px 0;
+  scroll-margin-top: 84px;
+  /* so clicking a nav link doesn't hide the section top under the fixed nav */
+}
+
+.section-head {
+  margin-bottom: 56px;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--amber);
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  display: block;
+}
+
+h2.section-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(30px, 4vw, 46px);
+  letter-spacing: -1px;
+}
+
+
+/* ==========================================================================
+     7. ABOUT SECTION
+     ========================================================================== */
+#about .about-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 70px;
+  /* bio text | stats list */
+  align-items: start;
+}
+
+.about-bio p {
+  font-size: 17px;
+  line-height: 1.85;
+  color: #C6CEE0;
+  margin-bottom: 18px;
+}
+
+.about-bio p strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.stat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.stat-item {
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+
+.stat-item:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-family: var(--display);
+  font-size: 19px;
+  font-weight: 600;
+}
+
+@media (max-width:860px) {
+  #about .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* stack on tablets/phones */
+
+
+/* ==========================================================================
+     8. SKILLS SECTION
+     ========================================================================== */
+.skill-groups {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* 4 cards across on desktop */
+.skill-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 26px 22px;
+  transform-style: preserve-3d;
+  /* needed for the JS mouse-tilt effect to look 3D */
+  transition: transform .3s ease, border-color .3s ease, background .3s ease;
+  will-change: transform;
+  /* hints the browser to optimize for frequent transform changes */
+}
+
+.skill-card:hover {
+  border-color: var(--violet);
+  background: var(--bg-panel-2);
+}
+
+.skill-card h3 {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  font-size: 13px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  color: #D5DBEA;
+}
+
+@media (max-width:960px) {
+  .skill-groups {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 2 across on tablets */
+@media (max-width:560px) {
+  .skill-groups {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 1 across on phones */
+
+
+/* ==========================================================================
+     9. EXPERIENCE SECTION (vertical timeline)
+     ========================================================================== */
+.timeline {
+  border-left: 1px solid var(--line);
+  padding-left: 40px;
+  position: relative;
+}
+
+.tl-item {
+  position: relative;
+  padding-bottom: 52px;
+}
+
+.tl-item:last-child {
+  padding-bottom: 0;
+}
+
+/* The small circle marker that sits ON the vertical timeline line */
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -45px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--amber);
+}
+
+.tl-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.tl-title {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.tl-org {
+  color: var(--teal);
+  font-size: 14px;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.tl-item ul {
+  padding-left: 18px;
+  color: #C6CEE0;
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.tl-item li {
+  margin-bottom: 4px;
+}
+
+
+/* ==========================================================================
+     10. PROJECTS SECTION
+     ========================================================================== */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  /* 3 cards across on desktop */
+  perspective: 1200px;
+  /* needed so the JS mouse-tilt 3D effect on cards has real depth */
+}
+
+.project-card {
+  background: linear-gradient(160deg, var(--bg-panel), var(--bg-panel-2));
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 0;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform .1s ease-out, border-color .3s ease;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  border-color: var(--amber);
+}
+
+.pc-top {
+  padding: 26px 26px 0 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pc-index {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* "01", "02", "03" */
+.pc-year {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--amber);
+}
+
+.pc-body {
+  padding: 16px 26px 26px 26px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-title {
+  font-family: var(--display);
+  font-size: 21px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.pc-desc {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.pc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.pc-tag {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: rgba(94, 234, 212, 0.08);
+  color: var(--teal);
+}
+
+.pc-link {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  transition: color .25s;
+}
+
+.pc-link:hover {
+  color: var(--amber);
+}
+
+.pc-link svg {
+  width: 13px;
+  height: 13px;
+  transition: transform .25s;
+}
+
+.pc-link:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* little arrow nudge on hover */
+@media (max-width:960px) {
+  .project-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* 2 across on tablets */
+@media (max-width:640px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 1 across on phones */
+
+
+/* ==========================================================================
+     11. EDUCATION SECTION
+     ========================================================================== */
+.edu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.edu-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: baseline;
+  /* details | year, side by side */
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+}
+
+.edu-list .edu-item:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.edu-degree {
+  font-family: var(--display);
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.edu-school {
+  color: var(--teal);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.edu-loc {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.edu-year {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+@media (max-width:600px) {
+  .edu-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+/* stack on phones */
+
+
+/* ==========================================================================
+     12. CONTACT SECTION
+     ========================================================================== */
+#contact {
+  padding-bottom: 80px;
+}
+
+.contact-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 70px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Soft glowing circle behind the heading, purely decorative */
+.contact-panel::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 138, 76, 0.10), transparent 70%);
+  pointer-events: none;
+}
+
+.contact-panel h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(30px, 5vw, 52px);
+  letter-spacing: -1px;
+  margin-bottom: 18px;
+  position: relative;
+}
+
+.contact-panel p {
+  color: var(--muted);
+  font-size: 16px;
+  margin-bottom: 36px;
+  position: relative;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+
+/* ==========================================================================
+     13. FOOTER
+     ========================================================================== */
+footer {
+  padding: 32px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+
+footer a {
+  color: var(--muted);
+}
+
+footer a:hover {
+  color: var(--amber);
+}
